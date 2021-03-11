@@ -19,6 +19,15 @@ document.onkeydown = (ev) => {
     makeCircle();
 };
 
+document.onclick = () => {
+    if (flrstClick) {
+        circle.style.display = "block";
+        flrstClick = !flrstClick;
+    };
+    soundSelectAndPlayMobile();
+    makeCircle();
+};
+
 function makeCircle() {
     currTime = new Date().getTime();
     if (currTime - prvTime > 0 && currTime - prvTime < 999) {
@@ -39,13 +48,18 @@ function makeCircle() {
 }
 
 function soundSelectAndPlay(ev) {
-    h1.innerText=`key:${ev.key}\\ keycode: ${ev.keyCode}\\ which ${ev.which}\\code ${ev.code}`
     if (/^[a-z]{1}$/.test(ev.key)) {
         sound = ev.key.charCodeAt(0) - 'a'.charCodeAt(0);
 
     } else {
         sound = ev.key.charCodeAt(0) - 'A'.charCodeAt(0);
     }
+    audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
+    audioObj.play();
+}
+
+function soundSelectAndPlayMobile() {
+    sound = Math.floor(Math.random()*26);
     audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
     audioObj.play();
 }
@@ -78,3 +92,4 @@ function hexColorGenerator(){
 }
 
 //play all prv complete songs
+//GET http://127.0.0.1:5500/favicon.ico 404 (Not Found)
