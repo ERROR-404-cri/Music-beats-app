@@ -1,0 +1,33 @@
+body {
+    background: linear-gradient(rgba(226, 170, 85, 0.3), rgba(228, 221, 158, 0.3));
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+#circle {
+    border-radius: 50%;
+    width: 1vw;
+    height: 1vw;
+    animation: anim 1s linear 0s normal forwards;
+    position: relative;
+    display: none;
+}
+
+@keyframes anim {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(80, 80);
+        opacity: 0;
+    }
+}
+
+#heading {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+}
