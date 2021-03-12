@@ -1,9 +1,19 @@
 let circle = document.getElementById('circle');
 let h1 = document.getElementById('heading');
+let loader= document.getElementById('loader');
 let timer, prvTime = 0,
     currTime, num1, num2, audioObj = null,
-    sound = null,colorVal=null;
+    sound = 0,colorVal=null;
 let flrstClick = true;
+let tracks=[];
+
+window.onload= ()=>{
+    for(let i=0;i<26;i++){
+        tracks[i]= new Audio(`./Beats/sounds/${i}.mp3`);
+        console.log(`${i}`+"wait");
+    }
+    loader.remove();
+};
 
 document.onkeydown = (ev) => {
 
@@ -14,7 +24,8 @@ document.onkeydown = (ev) => {
         circle.style.display = "block";
         flrstClick = !flrstClick;
     };
-
+    tracks[sound].pause();
+    tracks[sound].currentTime =0;
     soundSelectAndPlay(ev);
     makeCircle();
 };
@@ -24,6 +35,8 @@ document.onclick = () => {
         circle.style.display = "block";
         flrstClick = !flrstClick;
     };
+    tracks[sound].pause();
+    tracks[sound].currentTime =0;
     soundSelectAndPlayMobile();
     makeCircle();
 };
@@ -54,14 +67,14 @@ function soundSelectAndPlay(ev) {
     } else {
         sound = ev.key.charCodeAt(0) - 'A'.charCodeAt(0);
     }
-    audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
-    audioObj.play();
+    // audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
+    tracks[sound].play();
 }
 
 function soundSelectAndPlayMobile() {
     sound = Math.floor(Math.random()*26);
-    audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
-    audioObj.play();
+    // audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
+    tracks[sound].play();
 }
 
 function hexColorGenerator(){
@@ -91,5 +104,5 @@ function hexColorGenerator(){
     }
 }
 
-//play all prv complete songs
+//play prv songs too
 //GET http://127.0.0.1:5500/favicon.ico 404 (Not Found)
