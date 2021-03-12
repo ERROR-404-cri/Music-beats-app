@@ -10,7 +10,6 @@ let tracks=[];
 window.onload= ()=>{
     for(let i=0;i<26;i++){
         tracks[i]= new Audio(`./Beats/sounds/${i}.mp3`);
-        console.log(`${i}`+"wait");
     }
     loader.remove();
 };
@@ -24,8 +23,6 @@ document.onkeydown = (ev) => {
         circle.style.display = "block";
         flrstClick = !flrstClick;
     };
-    tracks[sound].pause();
-    tracks[sound].currentTime =0;
     soundSelectAndPlay(ev);
     makeCircle();
 };
@@ -35,8 +32,6 @@ document.onclick = () => {
         circle.style.display = "block";
         flrstClick = !flrstClick;
     };
-    tracks[sound].pause();
-    tracks[sound].currentTime =0;
     soundSelectAndPlayMobile();
     makeCircle();
 };
@@ -60,20 +55,29 @@ function makeCircle() {
     }, 1000);
 }
 
+let newOne=null;
 function soundSelectAndPlay(ev) {
     if (/^[a-z]{1}$/.test(ev.key)) {
-        sound = ev.key.charCodeAt(0) - 'a'.charCodeAt(0);
-
+        newOne = ev.key.charCodeAt(0) - 'a'.charCodeAt(0);
     } else {
-        sound = ev.key.charCodeAt(0) - 'A'.charCodeAt(0);
+        newOne = ev.key.charCodeAt(0) - 'A'.charCodeAt(0);
     }
     // audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
+    if(newOne===sound){
+        tracks[sound].currentTime =0;
+    }
+    sound= newOne;
     tracks[sound].play();
 }
 
 function soundSelectAndPlayMobile() {
-    sound = Math.floor(Math.random()*26);
+
+    newOne = Math.floor(Math.random()*26);
     // audioObj = new Audio(`./Beats/sounds/${sound}.mp3`);
+    if(newOne===sound){
+        tracks[sound].currentTime =0;
+    }
+    sound= newOne;
     tracks[sound].play();
 }
 
